@@ -1,7 +1,7 @@
 const main = document.getElementById('main');
 const addUserBtn = document.getElementById('add-user');
 const doubleBtn = document.getElementById('double');
-const showMillionersBtn = document.getElementById('show-millioners');
+const showMillionairesBtn = document.getElementById('show-millionaires');
 const sortBtn = document.getElementById('sort');
 const calculateWealthBtn = document.getElementById('calculate-wealth');
 
@@ -20,7 +20,7 @@ async function getRandomUser() {
 
   const newUser = {
     name: `${user.name.first} ${user.name.last}`,
-    money: Math.floor(Math.random() * 1000000),
+    money: Math.floor(Math.random() * 1000000)
   };
 
   addData(newUser);
@@ -28,23 +28,26 @@ async function getRandomUser() {
 
 // Double everyones money
 function doubleMoney() {
-  date = data.map((user) => {
-    return { ...user, money: user.money * 2 };
+  data = data.map(user => {
+    return {
+      ...user,
+      money: user.money * 2
+    };
   });
 
   updateDOM();
 }
 
-// ort users by rechest
+// ort users by richest
 function sortByRichest() {
   data.sort((a, b) => b.money - a.money);
 
   updateDOM();
 }
 
-// Filter onlu millioners
-function showMillionersRes() {
-  data = data.filter((user) => user.money > 1000000);
+// Filter only millionaires
+function showMillionaires() {
+  data = data.filter(user => user.money > 1000000);
 
   updateDOM();
 }
@@ -72,7 +75,7 @@ function updateDOM(providedData = data) {
   // Clear main div
   main.innerHTML = '<h2><strong>Person</strong> Wealth</h2>';
 
-  providedData.forEach((item) => {
+  providedData.forEach(item => {
     const element = document.createElement('div');
     element.classList.add('person');
     element.innerHTML = `<strong>${item.name}</strong> ${formatMoney(
@@ -91,5 +94,5 @@ function formatMoney(number) {
 addUserBtn.addEventListener('click', getRandomUser);
 doubleBtn.addEventListener('click', doubleMoney);
 sortBtn.addEventListener('click', sortByRichest);
-showMillionersBtn.addEventListener('click', showMillionersRes);
+showMillionairesBtn.addEventListener('click', showMillionaires);
 calculateWealthBtn.addEventListener('click', calculateWealth);
